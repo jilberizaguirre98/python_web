@@ -1,18 +1,46 @@
 /** @jsxImportSource @emotion/react */
 
 
-import { Fragment, useContext } from "react"
-import { EventLoopContext, StateContexts } from "/utils/context"
-import { Event, getBackendURL, isTrue } from "/utils/state"
+import { Fragment, useContext, useEffect, useState } from "react"
+import { ColorModeContext, EventLoopContext } from "/utils/context"
+import { Event, getBackendURL, isTrue, refs } from "/utils/state"
 import { WifiOffIcon as LucideWifiOffIcon } from "lucide-react"
 import { keyframes } from "@emotion/react"
-import { Dialog as RadixThemesDialog, Text as RadixThemesText } from "@radix-ui/themes"
+import { toast, Toaster } from "sonner"
 import env from "/env.json"
 import Error from "next/error"
 import { useClientSideRouting } from "/utils/client_side_routing"
 import NextHead from "next/head"
 
 
+
+export function Toaster_89416713a273995fc60191a4cf573054 () {
+  const [ colorMode, toggleColorMode ] = useContext(ColorModeContext)
+
+
+  refs['__toast'] = toast
+  const [addEvents, connectErrors] = useContext(EventLoopContext);
+  
+const toast_props = {"description": `Check if server is reachable at ${getBackendURL(env.EVENT).href}`, "closeButton": true, "duration": 120000, "id": "websocket-error"};
+const [userDismissed, setUserDismissed] = useState(false);
+useEffect(() => {
+    if (connectErrors.length >= 2) {
+        if (!userDismissed) {
+            toast.error(
+                `Cannot connect to server: ${(connectErrors.length > 0) ? connectErrors[connectErrors.length - 1].message : ''}.`,
+                {...toast_props, onDismiss: () => setUserDismissed(true)},
+            )
+        }
+    } else {
+        toast.dismiss("websocket-error");
+        setUserDismissed(false);  // after reconnection reset dismissed state
+    }
+}, [connectErrors]);
+
+  return (
+    <Toaster closeButton={false} expand={true} position={`bottom-right`} richColors={true} theme={colorMode}/>
+  )
+}
 
 const pulse = keyframes`
     0% {
@@ -24,18 +52,16 @@ const pulse = keyframes`
 `
 
 
-export function Fragment_966c0378eb9d65bdfb5286644be9b831 () {
+export function Fragment_cf53a535ae2e610a113dd361eb6ac95b () {
   const [addEvents, connectErrors] = useContext(EventLoopContext);
-  const state = useContext(StateContexts.state)
+
 
 
   return (
     <Fragment>
-  {isTrue(((!state.is_hydrated) || (connectErrors.length > 0))) ? (
+  {isTrue(connectErrors.length > 0) ? (
   <Fragment>
-  <LucideWifiOffIcon css={{"color": "crimson", "zIndex": 9999, "position": "fixed", "bottom": "30px", "right": "30px", "animation": `${pulse} 1s infinite`}} size={32}>
-  {`wifi_off`}
-</LucideWifiOffIcon>
+  <LucideWifiOffIcon css={{"color": "crimson", "zIndex": 9999, "position": "fixed", "bottom": "33px", "right": "33px", "animation": `${pulse} 1s infinite`}} size={32}/>
 </Fragment>
 ) : (
   <Fragment/>
@@ -44,32 +70,15 @@ export function Fragment_966c0378eb9d65bdfb5286644be9b831 () {
   )
 }
 
-export function Fragment_ac0b06893fc1b15016f3e0532508036d () {
+export function Div_ac2a89ea84667d600a059f034bd91dfe () {
   const [addEvents, connectErrors] = useContext(EventLoopContext);
 
 
+
   return (
-    <Fragment>
-  {isTrue(connectErrors.length >= 2) ? (
-  <Fragment>
-  <RadixThemesDialog.Root css={{"zIndex": 9999}} open={connectErrors.length >= 2}>
-  <RadixThemesDialog.Content>
-  <RadixThemesDialog.Title>
-  {`Connection Error`}
-</RadixThemesDialog.Title>
-  <RadixThemesText as={`p`}>
-  {`Cannot connect to server: `}
-  {(connectErrors.length > 0) ? connectErrors[connectErrors.length - 1].message : ''}
-  {`. Check if server is reachable at `}
-  {getBackendURL(env.EVENT).href}
-</RadixThemesText>
-</RadixThemesDialog.Content>
-</RadixThemesDialog.Root>
-</Fragment>
-) : (
-  <Fragment/>
-)}
-</Fragment>
+    <div css={{"position": "fixed", "width": "100vw", "height": "0"}} title={`Connection Error: ${(connectErrors.length > 0) ? connectErrors[connectErrors.length - 1].message : ''}`}>
+  <Fragment_cf53a535ae2e610a113dd361eb6ac95b/>
+</div>
   )
 }
 
@@ -79,10 +88,8 @@ export default function Component() {
   return (
     <Fragment>
   <Fragment>
-  <div css={{"position": "fixed", "width": "100vw", "height": "0"}}>
-  <Fragment_966c0378eb9d65bdfb5286644be9b831/>
-</div>
-  <Fragment_ac0b06893fc1b15016f3e0532508036d/>
+  <Div_ac2a89ea84667d600a059f034bd91dfe/>
+  <Toaster_89416713a273995fc60191a4cf573054/>
 </Fragment>
   <Fragment>
   {isTrue(routeNotFound) ? (

@@ -1,20 +1,30 @@
 import reflex as rx
+import link_bio.constants as const
 from link_bio.components.link_icon import link_icon
 from link_bio.components.info_text import info_text
-from link_bio.styles.styles import Size as Size
-from link_bio.styles.colors import TextColor as TextColor
+from link_bio.styles.styles import Size, Spacing
+from link_bio.styles.colors import Color, TextColor
 
 
 
 def header() -> rx.Component:
         return rx.vstack(
             rx.hstack(
-                rx.avatar(fallback="GV", color_scheme="pink", size="6"),
+                rx.avatar(
+                        name="Gabriela Vaca",
+                        size=Spacing.MEDIUM_BIG.value,
+                        src="/avatar.jpg",
+                        radius="full",
+                        color=TextColor.WHITE.value,
+                        bg=Color.BLUE_2.value,
+                        padding="1px",
+                        border=f"4px solid {Color.RED.value}"
+                ),
+                        
                 rx.vstack(
                         rx.heading(
                                 "Gabriela Vaca 🧘‍♀️", 
-                                font_size=Size.BIG.value,
-                                color=TextColor.BLACK.value
+                                size=Spacing.MEDIUM_BIG.value
                         ),
                         rx.text(
                                 "@gabrielavacar",
@@ -22,9 +32,9 @@ def header() -> rx.Component:
                                 color=TextColor.BLACK.value
                         ),
                         rx.hstack(
-                        link_icon("https://www.instagram.com/gabrielavacar/"),
-                        link_icon("https://www.instagram.com/gabrielavacar/"),
-                        link_icon("https://www.instagram.com/gabrielavacar/"),
+                        link_icon("instagram.png", const.INSTAGRAM_URL),
+                        link_icon("instagram.png", const.INSTAGRAM_URL),
+                        link_icon("instagram.png", const.INSTAGRAM_URL)
                         ),
                         align="start"
                 ),
@@ -47,9 +57,11 @@ def header() -> rx.Component:
                     equipo con enfoque en resultados, mostrando compromiso y habilidades 
                     interpersonales, y tiene una gran pasión por las herramientas TIC y 
                     las nuevas formas de comunicación transmedia. Bienvenid@!""",
+                    font_size=Size.MEDIUM.value,
                     color=TextColor.BLACK.value,
                     align="left"                    
                     ),
+                width="100%",
                 align="center",
-                spacing="5"
+                spacing=Spacing.LARGE.value
         )

@@ -1,11 +1,15 @@
 import reflex as rx
-import link_bio.styles.styles as styles
+from link_bio.styles.styles import Size as Size
 
+#Las imagenes/iconos fueron descargadas del sitio web "https://www.iconfinder.com/"
+#Las imagenes/iconos estan libres de atribución y son para uso comercial.
 
-
-def link_icon(url: str) -> rx.Component:
+def link_icon(imagen: str, url: str) -> rx.Component:
     return rx.link(
-            rx.chakra.icon(tag="calendar"
+        rx.image(
+            height=Size.LARGE.value, 
+            width=Size.LARGE.value,
+            src=imagen
             ),
         href=url,
         is_external=True

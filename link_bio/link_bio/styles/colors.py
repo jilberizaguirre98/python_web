@@ -6,7 +6,10 @@ class Color(Enum):
     BLUE_2 = "#AED3F2"
     GREEN = "#B6DAAD"
     RED = "#BF7056"
+    RED_2 = "#ff0000"
     PINK = "#F2AD85"
+    WHITE = "#FFFFFF"
+    TRANSPARENT = "transparent"
 
 class TextColor(Enum):
     WHITE = "#F1F2F4"
