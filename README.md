@@ -5,6 +5,7 @@
 
 ## Proyecto desarrollado con [Python](https://www.python.org/) y [Reflex](https://reflex.dev/) que representa un landing page.
 
+![image](https://github.com/user-attachments/assets/dc5a8400-6ac0-473e-8be3-a6f29ed1c6bc)
 
 ## Importante
 
