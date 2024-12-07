@@ -8,7 +8,6 @@ from link_bio.views.links.links import links
 from link_bio.components.background_index import background
 from link_bio.styles.styles import Size as Size, Spacing
 from link_bio.pages import *
-from link_bio.components.form import FormState, form_subscribe
 
 
 class State(rx.State):
@@ -40,9 +39,6 @@ def index() -> rx.Component:
                     rx.heading("Unete a nuestra comunidad", 
                                 size=Spacing.MEDIUM_BIG.value),
                                 margin_y=Size.BIG.value
-                ),
-                rx.center(
-                    form_subscribe()
                 ),                
                 rx.center(
                     footer()

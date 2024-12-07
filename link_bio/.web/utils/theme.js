@@ -1,1 +1,1 @@
-export default {"styles": {"global": {":root": {}, "body": {"fontFamily": "Poppins", "fontWeight": "300", "backgroundColor": "#AED3F2"}}}}
+export default ({ ["styles"] : ({ ["global"] : ({ [":root"] : ({  }), ["body"] : ({ ["fontFamily"] : "Poppins", ["--default-font-family"] : "Poppins", ["fontWeight"] : "300", ["backgroundColor"] : "#AED3F2" }) }) }) })
